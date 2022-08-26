@@ -1,0 +1,67 @@
+<html>
+
+<head>
+<style>
+	html, body {
+		margin: 0 0;
+		width: 100%;
+		height: 100%;
+    }
+	body {
+		background-image: url("https://cdn.discordapp.com/attachments/490282238475239425/1007165716522344488/aidz.JPG");
+		background-size: cover;
+		background-position: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title> Spending your tax money </title>
+</head>
+
+<body>
+<button id = 'button' type="button">How I will spend your tax money</button>
+<script>
+	window.addEventListener('load', function() {
+		setInterval(function() {
+			let img = new Image();
+			img.src = 'https://cdn.discordapp.com/attachments/490282238475239425/1011143761914499152/unknown.png';
+			img.style.width = '75px'
+			img.style.position = 'absolute';
+			target = (Math.floor(Math.random() * (document.body.clientWidth - 75)));
+			img.style.left = target + 'px';
+			img.style.top = '0px';
+			document.body.appendChild(img);
+			let yposition = 0;
+			function rain() {
+				yposition += 7;
+				img.style.top =  yposition + 'px';
+				if(yposition < document.body.clientHeight - img.clientHeight) {
+					setTimeout(rain, 1000/60)
+				} else {
+					document.body.removeChild(img);
+				}
+			}
+			setTimeout(rain, 1000/60);
+		}, 100);
+	});
+	
+	async function getURL() {
+		response = await fetch('/api');
+		json = await response.json();
+		return json;
+	}
+	
+	url = getURL();
+	
+	async function handleClick() {
+		document.location = await url;
+		url = getURL();
+	}
+	document.getElementById('button').addEventListener('click', handleClick);
+</script>
+</body>
+
+</html>
